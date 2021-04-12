@@ -14,7 +14,7 @@ function addElement(){
 	favArticle.appendChild(newSection);
 	newSection.className = 'preferiti';
 	
-	for ( const content of contenuti){		
+	for (const content of contenuti){		
 		
 		const newDiv = document.createElement('div');
 		newDiv.classList.add('hidden1');
@@ -61,7 +61,7 @@ function addElement(){
 	currentDiv.appendChild(newArticle);
 	
 	//Contenuti
-	for ( const content of contenuti){		
+	for (const content of contenuti){		
 		
 		const newDiv = document.createElement('div');
 		newDiv.classList.add('show');
@@ -107,9 +107,6 @@ function addFavorite(event){
 	}
 	fav.classList.remove('hidden1');
 	fav.classList.add('show');
-	
-	element.removeEventListener('click', addFavorite);
-	element.addEventListener('click', addFavorite);
 }
 
 function removeFavorite(event){
@@ -133,19 +130,17 @@ function removeFavorite(event){
 	if (i === checks.length) {
 		favArticle.removeAttribute('id');
 	}
-	
 }
 
 function showDetails(event){
 	const boxDetail = event.currentTarget;
+	if (boxDetail.textContent === 'Mostra Dettagli'){
+		boxDetail.textContent = 'Nascondi Dettagli';
+	} else {
+		boxDetail.textContent = 'Mostra Dettagli';
+	}
 	
 	if(boxDetail.className === 'info'){
-		if (boxDetail.textContent === 'Mostra Dettagli'){
-			boxDetail.textContent = 'Nascondi Dettagli';
-		} else {
-			boxDetail.textContent = 'Mostra Dettagli';
-		}
-
 		const detail = document.querySelectorAll('.details');
 		for (const det of detail){
 			if (det.id === boxDetail.parentNode.id){
@@ -153,16 +148,7 @@ function showDetails(event){
 				det.classList.add('show1');
 			}
 		}
-		
-		event.currentTarget.addEventListener('click', removeDetails);
-		event.currentTarget.removeEventListener('click', showDetails);
 	} else {
-		if (boxDetail.textContent === 'Mostra Dettagli'){
-			boxDetail.textContent = 'Nascondi Dettagli';
-		} else {
-			boxDetail.textContent = 'Mostra Dettagli';
-		}
-	
 		const detail = document.querySelectorAll('.hidden p');
 		for (const det of detail){
 			if (det.parentNode.id === boxDetail.parentNode.id){
@@ -171,22 +157,20 @@ function showDetails(event){
 				det.classList.add('show1');
 			}
 		}
-	
-		event.currentTarget.addEventListener('click', removeDetails);
-		event.currentTarget.removeEventListener('click', showDetails);
 	}
+	event.currentTarget.addEventListener('click', hideDetails);
+	event.currentTarget.removeEventListener('click', showDetails);
 }
 
-function removeDetails(event){
+function hideDetails(event){
 	const boxDetail = event.currentTarget;
+	if (boxDetail.textContent === 'Nascondi Dettagli'){
+		boxDetail.textContent = 'Mostra Dettagli';
+	} else {
+		boxDetail.textContent = 'Nascondi Dettagli';
+	}
 	
 	if(boxDetail.className === 'info'){
-		if (boxDetail.textContent === 'Nascondi Dettagli'){
-			boxDetail.textContent = 'Mostra Dettagli';
-		} else {
-			boxDetail.textContent = 'Nascondi Dettagli';
-		}
-
 		const detail = document.querySelectorAll('.show1');
 		for (const det of detail){
 			if (det.id === boxDetail.parentNode.id){
@@ -194,26 +178,17 @@ function removeDetails(event){
 				det.classList.add('details');
 			}
 		}
-		event.currentTarget.addEventListener('click', showDetails);
-		event.currentTarget.removeEventListener('click', removeDetails);
 	} else {
-		if (boxDetail.textContent === 'Mostra Dettagli'){
-			boxDetail.textContent = 'Nascondi Dettagli';
-		} else {
-			boxDetail.textContent = 'Mostra Dettagli';
-		}
-	
 		const detail = document.querySelectorAll('.hidden p');
 		for (const det of detail){
 			if (det.parentNode.id === boxDetail.parentNode.id){
-				console.log('eccomi');
 				det.classList.remove('show1');
 				det.classList.add('hidden');
 			}
 		}
-		event.currentTarget.addEventListener('click', showDetails);
-		event.currentTarget.removeEventListener('click', removeDetails);
 	}
+	event.currentTarget.addEventListener('click', showDetails);
+	event.currentTarget.removeEventListener('click', hideDetails);
 }
 
 
