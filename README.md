@@ -1,4 +1,4 @@
-# mhw1
+# mhw2
 Emanuele Gurrieri O46001995
 
 Mini Homework 2 UniCT
